@@ -1,0 +1,7 @@
+* text=auto
+*.java text eol=lf
+*.xml text eol=lf
+*.md text eol=lf
+*.patch text eol=lf
+*.ps1 text eol=lf
+*.yml text eol=lf

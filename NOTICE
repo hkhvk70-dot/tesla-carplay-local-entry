@@ -1,0 +1,21 @@
+Tesla CarPlay Local Entry
+
+The Android companion source and the modifications in this repository are
+licensed under GPL-3.0-only. See LICENSE.
+
+The WheelPlay patches modify GPL-3.0 receiver networking code and tests from:
+https://github.com/fython/wheelplay
+Base commit: d8b3a828f478b3b3508917c2e978d3264b47b532
+
+WheelPlay identifies DiPlay / xcertplay as upstream:
+https://github.com/shilapi/xcertplay
+See the upstream project for its complete license and third-party notices.
+Some upstream UI files have AGPL-3.0-only notices and some assets have
+separate terms. Those UI files and assets are not distributed here.
+
+This companion uses only the Android platform SDK, with no bundled
+third-party runtime library, receiver binary, authentication credential,
+Apple icon or Tesla asset.
+
+CarPlay, iPhone and Tesla names identify interoperability targets only.
+This project is not affiliated with or certified by Apple or Tesla.

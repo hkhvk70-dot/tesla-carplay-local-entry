@@ -1,0 +1,63 @@
+diff --git a/shared/src/main/java/com/shilapi/xcertplay/network/ManualHotspotManager.kt b/shared/src/main/java/com/shilapi/xcertplay/network/ManualHotspotManager.kt
+index 63b87f7..5a49d09 100644
+--- a/shared/src/main/java/com/shilapi/xcertplay/network/ManualHotspotManager.kt
++++ b/shared/src/main/java/com/shilapi/xcertplay/network/ManualHotspotManager.kt
+@@ -253,7 +253,7 @@ class ManualHotspotManager(
+     }
+ 
+     private fun NetworkInterface.hotspotAddress(): InetAddress? =
+-        wirelessHostAddress(Collections.list(inetAddresses), index)
++        manualHotspotHostAddress(Collections.list(inetAddresses), index)
+ 
+     private fun frequencyFromConnectionInfo(): Int? {
+         val connectionInfo = try {
+diff --git a/shared/src/main/java/com/shilapi/xcertplay/network/WirelessHostAddress.kt b/shared/src/main/java/com/shilapi/xcertplay/network/WirelessHostAddress.kt
+index 262b652..a42b05f 100644
+--- a/shared/src/main/java/com/shilapi/xcertplay/network/WirelessHostAddress.kt
++++ b/shared/src/main/java/com/shilapi/xcertplay/network/WirelessHostAddress.kt
+@@ -4,7 +4,7 @@ import java.net.Inet4Address
+ import java.net.Inet6Address
+ import java.net.InetAddress
+ 
+-/** Use the same scoped, link-local path for manual APs as for Wi-Fi Direct. */
++/** Scoped link-local preference for Wi-Fi Direct and the manual AP's IPv6 fallback. */
+ internal fun wirelessHostAddress(addresses: List<InetAddress>, interfaceIndex: Int): InetAddress? {
+     if (interfaceIndex > 0) {
+         addresses.filterIsInstance<Inet6Address>().firstOrNull { it.isLinkLocalAddress }?.let {
+@@ -16,3 +16,10 @@ internal fun wirelessHostAddress(addresses: List<InetAddress>, interfaceIndex: I
+             !it.isAnyLocalAddress && !it.isMulticastAddress
+     }
+ }
++
++/** Local AP compatibility experiment; leave the Wi-Fi Direct selection unchanged. */
++internal fun manualHotspotHostAddress(addresses: List<InetAddress>, interfaceIndex: Int): InetAddress? =
++    addresses.firstOrNull {
++        it is Inet4Address && !it.isLoopbackAddress && !it.isLinkLocalAddress &&
++            !it.isAnyLocalAddress && !it.isMulticastAddress
++    } ?: wirelessHostAddress(addresses, interfaceIndex)
+diff --git a/shared/src/test/java/com/shilapi/xcertplay/network/WirelessHostAddressTest.kt b/shared/src/test/java/com/shilapi/xcertplay/network/WirelessHostAddressTest.kt
+index cc06b72..d725fae 100644
+--- a/shared/src/test/java/com/shilapi/xcertplay/network/WirelessHostAddressTest.kt
++++ b/shared/src/test/java/com/shilapi/xcertplay/network/WirelessHostAddressTest.kt
+@@ -24,5 +24,21 @@ class WirelessHostAddressTest {
+         assertNull(wirelessHostAddress(listOf(ip("0.0.0.0"), ip("127.0.0.1"), ip("224.0.0.251")), 7))
+     }
+ 
++    @Test fun manualHotspotUsesIpv4WhileDirectPathStillUsesScopedIpv6() {
++        val ipv4 = ip("10.216.20.136")
++        val addresses = listOf(ip("fe80::1234"), ipv4)
++        assertEquals(ipv4, manualHotspotHostAddress(addresses, 7))
++        assertEquals(7, (wirelessHostAddress(addresses, 7) as Inet6Address).scopeId)
++    }
++
++    @Test fun manualHotspotFallsBackToScopedIpv6WhenNoUsableIpv4Exists() {
++        val addresses = listOf(ip("0.0.0.0"), ip("127.0.0.1"), ip("169.254.1.1"),
++            ip("224.0.0.251"), ip("fe80::1234"))
++        val result = manualHotspotHostAddress(addresses, 8) as Inet6Address
++        assertTrue(result.isLinkLocalAddress)
++        assertEquals(8, result.scopeId)
++        assertNull(manualHotspotHostAddress(addresses, 0))
++    }
++
+     private fun ip(value: String) = InetAddress.getByName(value)
+ }
