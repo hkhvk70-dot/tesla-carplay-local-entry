@@ -40,7 +40,7 @@
 
 - 17 个公开文件的白名单与 PowerShell 语法检查通过。
 - SDK 36 / Build Tools 36.0.0 编译、DEX、打包、对齐通过；开发签名 APK 的 v2/v3 签名验证通过。
-- 同一脚本的未签名构建路径通过；Linux CI 配置尚待 GitHub 实际运行，不把 Windows 本地成功当作 Linux 已验收。
+- 同一脚本的未签名构建路径通过；GitHub Ubuntu Linux CI 已成功安装 SDK、检查源码并构建未签名 APK。[成功运行记录](https://github.com/hkhvk70-dot/tesla-carplay-local-entry/actions/runs/37534134059)，对应代码提交 `ca18e8367d8e1d6ca5b8d25f592f39af2453e65e`。首次 CI 因 runner 缺少 sdkmanager 失败，增加显式 SDK 工具安装后通过。
 - 打包权限仅为前台服务、specialUse 和通知，没有 INTERNET 权限。
 - APK 内容为清单、平台资源、DEX 与开发签名，没有认证资产目录。
 - 两份 WheelPlay 补丁针对固定提交的 Git 索引应用检查通过；未为导出补丁重复构建现场接收端。
