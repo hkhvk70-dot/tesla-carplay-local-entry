@@ -11,6 +11,7 @@ $expected = @(
     'app/src/main/java/local/carplay/localentry/MainActivity.java',
     'app/src/main/java/local/carplay/localentry/LocalEntryService.java',
     'docs/SETUP.zh-CN.md', 'docs/TECHNICAL.md', 'docs/VALIDATION.md',
+    'docs/PITFALLS.zh-CN.md',
     'patches/wheelplay/README.md',
     'patches/wheelplay/0001-manual-hotspot-ipv4.patch',
     'patches/wheelplay/0002-stable-direct-credentials.patch',

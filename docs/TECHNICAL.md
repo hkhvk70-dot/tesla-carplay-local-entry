@@ -1,5 +1,7 @@
 # 机制与排查
 
+完整现场问题和 Windows 原型记录见 [踩坑记录与解决方法](PITFALLS.zh-CN.md)；本页解释当前入口实现。
+
 ## 为什么两个 VPN 配置
 
 入口第一次通过 VpnService 建立 `7.7.7.1/32` 的 TUN，第二次建立使用不同地址 `198.18.7.1/32` 的 TUN，保留两个 ParcelFileDescriptor。

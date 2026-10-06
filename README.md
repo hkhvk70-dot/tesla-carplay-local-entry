@@ -4,6 +4,8 @@
 
 2026-10-07 已在 **Xiaomi 17 Pro Max / Android 16 + 2025 Model 3 Performance AWD / 2026.26.200.11** 上现场验证：车机显示 CarPlay，点击应用和拖动地图正常。这是一套设备上的实验结果，尚不代表其他手机或后续系统更新也兼容。
 
+> **首次使用先看 [踩坑记录与解决方法](docs/PITFALLS.zh-CN.md)。** 热点最大连接数至少 3；使用设备热点模式和一致的凭据；关闭自适应浏览器尺寸；先恢复 CarPlay，再启动入口。该指南含可转发提示卡、40 项实际问题的处理方法、证据范围、回滚说明和问题报告模板。
+
 ## 工作方式
 
 ```mermaid
@@ -29,6 +31,7 @@ flowchart LR
 | `patches/wheelplay/` | 针对固定上游提交的 GPL-3.0 WheelPlay 补丁 |
 | `docs/SETUP.zh-CN.md` | 手机与车机操作步骤、停止和重启恢复 |
 | `docs/TECHNICAL.md` | 接口机制、适用范围、排查与限制 |
+| `docs/PITFALLS.zh-CN.md` | 使用提示卡、40 项踩坑与处理、排查和报告模板 |
 | `docs/VALIDATION.md` | 已通过及尚未验证的项目 |
 
 本仓库不包含 WheelPlay 自用 APK、认证私钥/证书、签名密钥、Wi-Fi 密码、配对数据或设备日志。**只安装本地入口无法建立 CarPlay：先准备一个可用的 WheelPlay 接收端及其所需的合法认证配置。** 认证相关要求以接收端上游为准；本项目不提供这些材料。
