@@ -11,7 +11,8 @@ WheelPlay identifies DiPlay / xcertplay as upstream:
 https://github.com/shilapi/xcertplay
 See the upstream project for its complete license and third-party notices.
 Some upstream UI files have AGPL-3.0-only notices and some assets have
-separate terms. Those UI files and assets are not distributed here.
+separate terms. Those UI files and assets are not part of the standalone
+companion Git tree; integrated release assets are described below.
 
 This companion uses only the Android platform SDK, with no bundled
 third-party runtime library, receiver binary, authentication credential,
@@ -19,3 +20,18 @@ Apple icon or Tesla asset.
 
 CarPlay, iPhone and Tesla names identify interoperability targets only.
 This project is not affiliated with or certified by Apple or Tesla.
+
+tepla release assets
+--------------------
+The statements above describe the standalone companion code in this Git tree.
+The tepla-v0.2.1 Release additionally distributes an integrated tepla APK and its
+complete corresponding source archive, tepla-0.2.1-source.zip. That archive
+preserves the upstream GPL, AGPL and separate third-party notices; this NOTICE
+does not relicense those components or authentication materials.
+
+The tepla APK explicitly bundles the experimental runtime accessory identity
+already present in the public DiPlay 0.2.12 APK. DiPlay documents its origin as
+public Carlinkit C2Air / Allwinner V821 firmware:
+https://github.com/shihabal3amri/DiPlay/blob/main/docs/THIRD_PARTY_NOTICES.md#experimental-authentication-data
+It is not a newly issued Apple identity or official CarPlay certification.
+Android signing private keys and personal Wi-Fi/pairing data are not included.

@@ -1,5 +1,15 @@
 # Tesla CarPlay Local Entry
 
+> **📌 tepla 0.2.1 一体直装版**
+>
+> **[下载 Android 安装包](https://github.com/hkhvk70-dot/tesla-carplay-local-entry/releases/download/tepla-v0.2.1/tepla-0.2.1-direct.apk) · [使用指南](docs/TEPLA_GUIDE.zh-CN.md) · [最新 Release / 完整源码](https://github.com/hkhvk70-dot/tesla-carplay-local-entry/releases/tag/tepla-v0.2.1)**
+>
+> 同一个 App 包含 CarPlay 接收、网页串流与免 root 本地入口，已内置现有实验认证材料，首次无需认证 ZIP。支持 ARM64 / Android 9+；热点须可上网。安装后的权限、蓝牙与车机配对按指南完成，其他机型兼容性仍需实测。
+
+tepla 完整对应源码随 Release 提供为 `tepla-0.2.1-source.zip`。本仓库下方的 `app/` 和历史流程仍是原独立本地入口 0.4.0；Release 页面自动生成的「Source code」归档对应本仓库，不代替 tepla 完整源码附件。
+
+## 原独立入口方案
+
 免 root Android 本地入口，让车机浏览器在局域网访问 WheelPlay 的 CarPlay 页面。
 
 2026-10-07 已在 **Xiaomi 17 Pro Max / Android 16 + 2025 Model 3 Performance AWD / 2026.26.200.11** 上现场验证：车机显示 CarPlay，点击应用和拖动地图正常。这是一套设备上的实验结果，尚不代表其他手机或后续系统更新也兼容。
@@ -32,11 +42,12 @@ flowchart LR
 | `docs/SETUP.zh-CN.md` | 手机与车机操作步骤、停止和重启恢复 |
 | `docs/TECHNICAL.md` | 接口机制、适用范围、排查与限制 |
 | `docs/PITFALLS.zh-CN.md` | 使用提示卡、40 项踩坑与处理、排查和报告模板 |
+| `docs/TEPLA_GUIDE.zh-CN.md` | 当前 tepla 直装版下载、首次设置、日常恢复与故障处理 |
 | `docs/VALIDATION.md` | 已通过及尚未验证的项目 |
 
-本仓库不包含 WheelPlay 自用 APK、认证私钥/证书、签名密钥、Wi-Fi 密码、配对数据或设备日志。**只安装本地入口无法建立 CarPlay：先准备一个可用的 WheelPlay 接收端及其所需的合法认证配置。** 认证相关要求以接收端上游为准；本项目不提供这些材料。
+原独立入口源码不包含接收端 APK、认证材料、签名密钥、Wi-Fi 密码、配对数据或设备日志。**只安装原本地入口无法建立 CarPlay，需要另行准备接收端。** 当前 tepla Release 是一体 App，内置的实验认证材料来源及对应源码许可见 [直装使用指南](docs/TEPLA_GUIDE.zh-CN.md) 和源码附件中的第三方声明。
 
-## 安装与使用
+## 原独立入口安装与使用
 
 1. 使用源码构建本地入口 APK，安装到 Android。构建命令见下文。
 2. Android 插入可上网的 SIM，开启移动数据、蓝牙和系统个人热点。热点最大连接设备数设为至少 **3**。此前配置为 1 时，电脑占用名额后，iPhone 会被系统热点主动断开。
@@ -83,4 +94,4 @@ pwsh -NoProfile -File ./scripts/build.ps1 -AndroidSdkRoot $env:ANDROID_SDK_ROOT 
 
 ## 来源与许可证
 
-本项目源码和 WheelPlay 补丁采用 **GPL-3.0-only**，见 [LICENSE](LICENSE) 和 [NOTICE](NOTICE)。WheelPlay、DiPlay/xcertplay 及其其他组件的原有声明由各自项目保留；这里没有复制它们的整套代码或素材。CarPlay、iPhone 和 Tesla 是各自所有者的商标，本项目不是官方产品。
+本仓库原独立入口源码和 WheelPlay 补丁采用 **GPL-3.0-only**，见 [LICENSE](LICENSE) 和 [NOTICE](NOTICE)。tepla 对应源码附件另保留 WheelPlay、DiPlay/xcertplay、部分 UI 的 GPL / AGPL 以及各第三方资产原有声明，不能统一重新许可。CarPlay、iPhone 和 Tesla 是各自所有者的商标，本项目不是官方产品。
